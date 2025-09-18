@@ -1,0 +1,4 @@
+rmdir /s /q .git
+rmdir /s /q .github
+del .gitignore
+del .gitattributes
