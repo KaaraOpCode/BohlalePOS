@@ -1,3 +1,4 @@
+// Import global CSS styles (ensure your project supports CSS imports)
 import './globals.css';
 import type { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
@@ -5,7 +6,7 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'WebPOSAI',
+  title: 'TPMPOS',
   description: 'AI-powered Point of Sale system',
   icons: {
     icon: '/logo.png', // This sets the favicon
