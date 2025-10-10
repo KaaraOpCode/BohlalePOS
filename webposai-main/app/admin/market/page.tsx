@@ -26,6 +26,7 @@ export default function MarketPage() {
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
   const [paymentCompleted, setPaymentCompleted] = useState(false);
   const [showReceiptModal, setShowReceiptModal] = useState(false);
+  
 
   // Till operations
   const [transactionCount, setTransactionCount] = useState(0);
@@ -57,18 +58,32 @@ export default function MarketPage() {
   }, [addedProductId]);
 
   // Cart operations
-  const addToCart = (product: Product) => {
-    setCartItems(prev => {
+    const addToCart = (product: Product) => {
+    setCartItems((prev: CartItem[]): CartItem[] => {
       const idx = prev.findIndex(p => p.id === product.id);
       if (idx !== -1) {
         const copy = [...prev];
-        copy[idx].quantity += 1;
+        copy[idx] = {
+          ...copy[idx],
+          quantity: copy[idx].quantity + 1,
+        };
         return copy;
       }
-      return [...prev, { ...product, quantity: 1, cartIndex: Date.now() }];
+
+      const newItem: CartItem = {
+        ...product,
+        status: product.status ?? "active", // <- this line fixes the TS error
+        quantity: 1,
+        cartIndex: Date.now(),
+      };
+
+      return [...prev, newItem];
     });
+
     setAddedProductId(product.id);
   };
+
+
 
   const updateQuantity = (cartIndex: number, qty: number) => {
     if (qty <= 0) return removeFromCart(cartIndex);
